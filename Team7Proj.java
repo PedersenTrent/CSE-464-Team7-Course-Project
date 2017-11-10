@@ -61,7 +61,7 @@ public class Team7Proj{
 	        add(new rentalCar("Mitsubishi","Outlander","SUV",27.5,carType.STANDARD));
 	        add(new rentalCar("Honda","Accord","Sedan",31.5,carType.INTERMEDIATE));
 	        add(new rentalCar("Ford","C-MAX Energi SE","Hybrid",39,carType.INTERMEDIATE));
-	        add(new rentalCar("Chevorlet","Colorado Crew Cab","Truck",22,carType.STANDARD));
+	        add(new rentalCar("Chevrolet","Colorado Crew Cab","Truck",22,carType.STANDARD));
 	        add(new rentalCar("Dodge","Journey","Crossover",21,carType.STANDARD));
 	        add(new rentalCar("Hyundai","Tuscon","Crossover",26,carType.STANDARD));
 	        add(new rentalCar("Kia","Sedona","Van/Minivan",19,carType.VAN));
@@ -75,14 +75,59 @@ public class Team7Proj{
 	    }
 	};
 	
-	public ArrayList<rentalCar> findRentalCar(int numPass, int numDays, int mileage){
+	public void displayRental(int numPass, int numDays, int mileage) {
 		
 		ArrayList<rentalCar> rentals = new ArrayList<rentalCar>();
 		
-		return rentals;
+		// Add viable cars to "rentals"
+		// Eliminate any cars that have less passengers than required
+		for(int i = 0; i < carList.size(); i++) 
+		{
+			if(carList.get(i).getCarType().getMaxPass() >= numPass) 
+			{
+				rentals.add(carList.get(i));
+			}
+		}
+		
+		// Calculate the price for each cars
+		ArrayList<Double> cost = new ArrayList<Double>();
+		for(int i = 0; i < rentals.size(); i++) 
+		{
+			cost.add(calculateCost(rentals.get(i), numDays, mileage));
+		}
+		
+		// Sort by overall cost first, then comfort level
+		
+		// Display the car information in sort order
+		// make, model, number of passenger, total cost
 	}
 	
-	public void displayRentals(ArrayList<rentalCar> rentals){
+	// method to calculate the rental cost
+	public double calculateCost(rentalCar car, int numDay, int mileage) {
 		
+		// total gas in gallons * price per gallon (2.25) 
+		double gasCost = (mileage/car.getMPG())*2.25;
+		
+		// rental cost = rent per day * total day
+		double rentCost = numDay*car.getCarType().getCost();
+		
+		// get a free day for every multiple of 6
+		double discount = (numDay/6)*car.getCarType().getCost();
+		
+		// extra charge based on new specification update
+		double extra = 1.0;
+		if(car.getMake() == "Honda" && (car.getCarCategory() == "Sedan" || 
+				car.getCarCategory() == "Hybrid" || car.getCarCategory() == "SUV")) {
+			extra = 1.1;
+		}
+		
+		if(car.getMake() == "Chevrolet" || car.getMake() == "Chrysler" || car.getMake() == "Dodge" ||
+				car.getMake() == "Ford" || car.getMake() == "GMC") {
+			extra = 1.05;
+		}
+		
+		// return the cost
+		return (gasCost+rentCost-discount)*extra;
 	}
+
 }
