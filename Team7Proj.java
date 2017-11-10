@@ -127,7 +127,7 @@ public class Team7Proj{
 		}
 		
 		// return the cost
-		return (gasCost+rentCost-discount)*extra;
+		return gasCost+(rentCost-discount)*extra;
 	}
 
 }
