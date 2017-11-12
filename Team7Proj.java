@@ -168,7 +168,7 @@ public class Team7Proj
 		double rentCost = numDay*car.getCarType().getCost();
 		// get a free day for every multiple of 6 for standard and intermediate cars
 		double discount = (numDay/6)*car.getCarType().getCost();
-		if(car.getCarType() != carType.ECONOMY || car.getCarType() != carType.VAN)
+		if(car.getCarType() == carType.ECONOMY || car.getCarType() == carType.VAN)
 			discount = 0;
 		// extra charge based on new specification update
 		double extra = 1.0;
