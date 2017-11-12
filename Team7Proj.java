@@ -105,6 +105,8 @@ public class Team7Proj
 		}
 		// Sort by overall cost first, then comfort level
 		
+		
+		ArrayList<rentalCar> choiceList = new ArrayList<rentalCar>();
 		double maxCost = 1e20;
 		String comfort = "";
 		rentalCar choice = null;
@@ -120,6 +122,12 @@ public class Team7Proj
 					maxCost = costCar;
 					comfort = car.getCarType().getComfortLevel();
 					choice = car;
+					choiceList.clear();
+					choiceList.add(car);
+				}
+				else if(car.getCarType().getComfortLevel().equals(comfort))
+				{
+					choiceList.add(car);
 				}
 			}
 			else if(costCar < maxCost)
@@ -127,6 +135,8 @@ public class Team7Proj
 				maxCost = costCar;
 				comfort = car.getCarType().getComfortLevel();	
 				choice = car;
+				choiceList.clear();
+				choiceList.add(choice);
 			}
 			
 		}
@@ -151,11 +161,15 @@ public class Team7Proj
 		// make, model, number of passenger, total cost
 		else
 		{
-			System.out.println("Make: " + choice.getMake());
-			System.out.println("Model: " + choice.getModel());
-			int passenger = choice.getCarType().getMaxPass();
-			System.out.println("Number of Passengers: " + passenger);
-			System.out.printf("Cost: $%.2f\n", maxCost);
+			for(int i = 0; i < choiceList.size(); i++)
+			{
+				System.out.println("Make: " + choiceList.get(i).getMake());
+				System.out.println("Model: " + choiceList.get(i).getModel());
+				int passenger = choiceList.get(i).getCarType().getMaxPass();
+				System.out.println("Number of Passengers: " + passenger);
+				System.out.printf("Cost: $%.2f\n", maxCost);
+				System.out.println();
+			}
 		}
 	}
 
