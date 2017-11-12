@@ -76,7 +76,7 @@ public class Team7Proj
 	        add(new rentalCar("Hyundai","Tuscon","Crossover",26,carType.STANDARD));
 	        add(new rentalCar("Kia","Sedona","Van/Minivan",19,carType.VAN));
 	        add(new rentalCar("Dodge","Grand Caravan","Van/Minivan",20,carType.VAN));
-	        add(new rentalCar("Toyota","Corolla","Sedan",35,carType.INTERMEDIATE));
+	        add(new rentalCar("Mitsubishi","Lancer","Sedan",30,carType.INTERMEDIATE));
 	        add(new rentalCar("Honda","Pilot","SUV",23.5,carType.STANDARD));
 	        add(new rentalCar("GMC","Sierra","Truck",21,carType.STANDARD));
 	        add(new rentalCar("RAM","ProMaster City","Van/Minivan",24,carType.VAN));
@@ -166,8 +166,10 @@ public class Team7Proj
 		double gasCost = (mileage/car.getMPG())*2.25;
 		// rental cost = rent per day * total day
 		double rentCost = numDay*car.getCarType().getCost();
-		// get a free day for every multiple of 6
+		// get a free day for every multiple of 6 for standard and intermediate cars
 		double discount = (numDay/6)*car.getCarType().getCost();
+		if(car.getCarType() != carType.ECONOMY || car.getCarType() != carType.VAN)
+			discount = 0;
 		// extra charge based on new specification update
 		double extra = 1.0;
 		if(car.getMake() == "Honda" && (car.getCarCategory() == "Sedan" || car.getCarCategory() == "Hybrid" || car.getCarCategory() == "SUV")) 
