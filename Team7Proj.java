@@ -186,10 +186,24 @@ public class Team7Proj
 	{
 		Scanner console = new Scanner(System.in);
 		System.out.println("Enter the number of passengers:");
+		while(!console.hasNextInt()){
+			console.next();
+			System.out.print("Please enter an integer: ");
+		}
 		int passenger = console.nextInt();
+		
 		System.out.println("Enter the number of days:");
+		while(!console.hasNextInt()){
+			console.next();
+			System.out.print("Please enter an integer: ");
+		}
 		int days = console.nextInt();
+		
 		System.out.println("Enter the approximate miles for the trip:");
+		while(!console.hasNextDouble()){
+			console.next();
+			System.out.print("Please enter a valid distance: ");
+		}
 		double miles = console.nextDouble();
 		
 		Team7Proj.displayRental(passenger, days, miles);
